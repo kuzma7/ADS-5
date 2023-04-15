@@ -33,25 +33,21 @@ std::string infx2pstfx(std::string inf) {
     for (int i = 0; i < inf.size(); i++) {
         if (isdigit(inf[i]) != 0) {
             res += inf[i];
-        }
-        else if (prior(inf[i]) == 2 || prior(inf[i]) == 3) {
+        } else if (prior(inf[i]) == 2 || prior(inf[i]) == 3) {
             res += " ";
             if (ownStack.isEmpty() || prior(ownStack.get()) == 0 ||
                 prior(inf[i]) > prior(ownStack.get())) {
                 ownStack.push(inf[i]);
-            }
-            else if (prior(inf[i]) <= prior(ownStack.get())) {
+            } else if (prior(inf[i]) <= prior(ownStack.get())) {
                 while (prior(inf[i]) <= prior(ownStack.get())) {
                     res += ownStack.pop();
                     res += " ";
                 }
                 ownStack.push(inf[i]);
             }
-        }
-        else if (prior(inf[i]) == 0) {
+        } else if (prior(inf[i]) == 0) {
             ownStack.push(inf[i]);
-        }
-        else if (prior(inf[i]) == 1) {
+        } else if (prior(inf[i]) == 1) {
             while (prior(ownStack.get()) != 0) {
                 res += " ";
                 res += ownStack.pop();
@@ -86,8 +82,7 @@ int eval(std::string pref) {
         if (isdigit(pref[i]) != 0) {
             int num = pref[i] - '0';
             opStack2.push(num);
-        }
-        else if (prior(pref[i]) == 2 || prior(pref[i]) == 3) {
+        } else if (prior(pref[i]) == 2 || prior(pref[i]) == 3) {
             int a = opStack2.pop();
             int b = opStack2.pop();
             opStack2.push(calculate(a, b, pref[i]));
